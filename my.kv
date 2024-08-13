@@ -1,0 +1,564 @@
+<Label>:
+    halign: 'center'
+    markup : True
+
+
+<Fundo@FloatLayout>:
+    canvas:
+        Color:
+            rgba: 253/256, 240/256, 213/256, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+[Barra@FloatLayout]:
+    FloatLayout:
+        size_hint: 1, 0.1
+        canvas:
+            Color:
+                rgba: 120/256, 0/256, 0/256, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    GridLayout:
+        cols: 3
+        size_hint: 1, 0.1
+        Button:
+            background_color: (120/256, 0/256, 0/256, ctx.btn1)
+            text: "Com\naltura"
+            color: (1, 0.95, 0.95, 0.9)
+            font_size: self.parent.height/4
+            on_release:
+                app.root.current = "palt"
+        Button:
+            background_color: (120/256, 0/256, 0/256, ctx.btn2)
+            text: "Sem\naltura"
+            color: (1, 0.95, 0.95, 0.9)
+            font_size: self.parent.height/4
+            on_release:
+                app.root.current = "pid"
+        Button:
+            background_color: (120/256, 0/256, 0/256, ctx.btn3)
+            text: "Mais"
+            color: (1, 0.95, 0.95, 0.9)
+            font_size: self.parent.height/4
+            on_release:
+                app.root.current = "info"
+
+
+
+<Topo@FloatLayout>:
+    FloatLayout:
+        size_hint: 1, 0.1
+        pos_hint: {"top": 1}
+        canvas:
+            Color:
+                rgba: 120/256, 0, 0, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+<Pas_altura>:
+    FloatLayout:
+        id: tudo
+        Fundo:
+        Topo:
+        Label:
+            pos_hint: {"top": 0.98}
+            text: "Calculadora"
+            size_hint: 1, 0.06
+            font_size: root.height/15
+
+
+        Label:
+            id: Lsexo
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]Sexo:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.885, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: Lidade
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]Idade:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.815, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: Laltura
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]Altura:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.745, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Image:
+            source: "maleroxo.png"
+            keep_ratio: True
+            allow_stretch: False
+            size_hint: 0.1, 0.06
+            pos_hint: {"center_y": 0.865, "x": 0.518}
+        Image:
+            source: "femaleroxo.png"
+            keep_ratio: True
+            allow_stretch: False
+            size_hint: 0.1 * 0.9, 0.06 * 0.9
+            pos_hint: {"center_y": 0.865, "x": 0.88}
+
+        Slider:
+            id: sliderSex
+            size_hint: 0.3, 0.05
+            pos_hint: {"top": 0.888, "x": 0.6}
+            min: 0
+            max: 1
+            step: 1
+            background_width: root.height/18
+            value_track_width: root.height/200
+            cursor_image: "cursor3.png"
+            cursor_size: root.height/28, root.height/28
+            value_track: True
+            value_track_color: 193/256, 18/256, 31/256, 1
+            on_touch_move: root.sexo()
+            on_touch_up: root.sexo()
+
+        Slider:
+            id: sliderId
+            size_hint: 0.51, 0.05
+            pos_hint: {"top": 0.818, "x": 0.485}
+            min: 1
+            max: 17
+            step: 1
+            background_width: root.height/18
+            value_track_width: root.height/200
+            cursor_image: "cursor3.png"
+            cursor_size: root.height/28, root.height/28
+            value_track: True
+            value_track_color: 193/256, 18/256, 31/256, 1
+            on_touch_move: root.ano()
+            on_touch_up: root.ano()
+
+        FloatInput:
+            id: ti
+            text: "Digite aqui a altura"
+            halign: "left"
+            font_size: root.height/50
+            size_hint: 0.485, 1/24
+            pos_hint: {"top": 0.747, "x": 0.5}
+            multiline: False
+            on_focus: root.foco()
+            on_text: root.altura()
+            on_text_validate: root.calcular()
+
+        Button:
+            size_hint: 0.249, 0.05
+            pos_hint: {"top": 0.691, "x": 0.73}
+            text: "Calcular"
+            font_size: root.height/36
+            background_normal: "branco.png"
+            background_color: 193/256, 18/256, 31/256, 1
+            on_release: root.calcular()
+
+        Label:
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]PAS[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.555, "x": 0.13}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]PAD[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.555, "x": 0.64}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pas50
+            halign: "left"
+            font_size: root.height/32
+            text: "[b]P50:[/b]"
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.5, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pas90
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P90:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.45, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pas95
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P95:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.4, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pasmax
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P95 + 12:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.35, "x": 0.01}
+            width: self.texture_size[0]
+            color: 00/256, 38/256, 61/256, 1
+
+        Label:
+            id: pad50
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P50:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.5, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pad90
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P90:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.45, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pad95
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P95:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.4, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: padmax
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P95 + 12:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.35, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: autoria
+            halign: "justify"
+            font_size: root.height/45
+            text: root.autoria
+            text_size: self.width*0.99, None
+            size_hint: 0.99, None
+            pos_hint: {'x': 0.005, "top": 0.22}
+            height: self.texture_size[1]
+            color: 0/256, 38/256, 61/256, 1
+
+        Barra:
+            btn1: 0.55
+            btn2: 0.15
+            btn3: 0.15
+
+<Pas_idade>:
+    FloatLayout:
+        id: tudo
+        Fundo:
+        Topo:
+        Label:
+            pos_hint: {"top": 0.98}
+            text: "Calculadora"
+            size_hint: 1, 0.06
+            font_size: root.height/15
+
+
+        Label:
+            id: Lsexo
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]Sexo:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.885, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: Lidade
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]Idade:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.815, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+
+        Image:
+            source: "maleroxo.png"
+            keep_ratio: True
+            allow_stretch: False
+            size_hint: 0.1, 0.06
+            pos_hint: {"center_y": 0.865, "x": 0.518}
+        Image:
+            source: "Femaleroxo.png"
+            keep_ratio: True
+            allow_stretch: False
+            size_hint: 0.1 * 0.9, 0.06 * 0.9
+            pos_hint: {"center_y": 0.865, "x": 0.88}
+
+        Slider:
+            id: sliderSex
+            size_hint: 0.3, 0.05
+            pos_hint: {"top": 0.888, "x": 0.6}
+            min: 0
+            max: 1
+            step: 1
+            background_width: root.height/18
+            value_track_width: root.height/200
+            cursor_image: "cursor3.png"
+            cursor_size: root.height/28, root.height/28
+            value_track: True
+            value_track_color: 193/256, 18/256, 31/256, 1
+            on_touch_move: root.sexo()
+            on_touch_up: root.sexo()
+
+        Slider:
+            id: sliderId
+            size_hint: 0.51, 0.05
+            pos_hint: {"top": 0.818, "x": 0.485}
+            min: 0
+            max: 31
+            step: 1
+            background_width: root.height/18
+            value_track_width: root.height/200
+            cursor_image: "cursor3.png"
+            cursor_size: root.height/28, root.height/28
+            value_track: True
+            value_track_color: 193/256, 18/256, 31/256, 1
+            on_touch_move: root.ano()
+            on_touch_up: root.ano()
+
+        Button:
+            size_hint: 0.249, 0.05
+            pos_hint: {"top": 0.75, "x": 0.73}
+            text: "Calcular"
+            font_size: root.height/36
+            background_normal: "branco.png"
+            background_color: 193/256, 18/256, 31/256, 1
+            on_release: root.calcular()
+
+        Label:
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]PAS[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.605, "x": 0.13}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            halign: "left"
+            font_size: root.height/28
+            text: '[b]PAD[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/28
+            pos_hint: {"top": 0.605, "x": 0.64}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pas5
+            halign: "left"
+            font_size: root.height/32
+            text: "[b]P05:[/b]"
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.55, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pas10
+            halign: "left"
+            font_size: root.height/32
+            text: "[b]P10:[/b]"
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.5, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pas50
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P50:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.45, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pas90
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P90:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.4, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pas95
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P95:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.35, "x": 0.01}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pad5
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P05:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.55, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pad10
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P10:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.5, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pad50
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P50:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.45, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pad90
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P90:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.4, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: pad95
+            halign: "left"
+            font_size: root.height/32
+            text: '[b]P95:[/b]'
+            text_size: self.width, None
+            size_hint: 1, 1/32
+            pos_hint: {"top": 0.35, "x": 0.51}
+            width: self.texture_size[0]
+            color: 0/256, 38/256, 61/256, 1
+
+        Label:
+            id: autoria
+            halign: "justify"
+            font_size: root.height/45
+            text: root.autoria
+            text_size: self.width*0.99, None
+            size_hint: 0.99, None
+            pos_hint: {'x': 0.005, "top": 0.22}
+            height: self.texture_size[1]
+            color: 0/256, 38/256, 61/256, 1
+
+        Barra:
+            btn1: 0.15
+            btn2: 0.55
+            btn3: 0.15
+
+<Informacoes>
+    Fundo
+    Topo
+    Label:
+        pos_hint: {"top": 0.98}
+        text: "Informações"
+        size_hint: 1, 0.06
+        font_size: root.height/15
+
+    Label:
+        id: autoria
+        markup: True
+        halign: "justify"
+        font_size: root.height/50
+        text: root.autoria
+        text_size: self.width*0.99, None
+        size_hint: 0.99, None
+        pos_hint: {'x': 0.005, "top": 0.899}
+        height: self.texture_size[1]
+        color: 0/256, 38/256, 61/256, 1
+
+    Label:
+        halign: "left"
+        font_size: root.height/60
+        text: 'Versão 1.0.1 - Atualizada em 13/08/2024'
+        text_size: self.width, None
+        size_hint: 1, 1/60
+        pos_hint: {"y": 0.1, "x": 0.01}
+        width: self.texture_size[0]
+        color: 0/256, 38/256, 61/256, 1
+    Barra:
+        btn1: 0.15
+        btn2: 0.15
+        btn3: 0.55
